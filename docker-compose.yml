@@ -1,0 +1,22 @@
+services:
+  dashboard:
+    build: .
+    image: radar-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      RADAR_DB_PASS: ${RADAR_DB_PASS}
+      SSH_USER:      ${SSH_USER:-bidhanp}
+      SSH_KEY_PATH:  /run/secrets/ssh_key
+    volumes:
+      # SSH private key — mounted read-only from the host
+      - ${SSH_KEY_FILE:-~/.ssh/id_rsa}:/run/secrets/ssh_key:ro
+      # Persist generated CSV/Excel output across restarts
+      - ./outputs:/app/outputs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

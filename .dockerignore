@@ -1,0 +1,30 @@
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Temp files left by editors / Claude Code
+*.tmp.*
+*.swp
+*.tmp
+
+# Patient data — never bake into image
+outputs/
+
+# Secrets
+.env
+.env.local
+.streamlit/secrets.toml
+
+# Dev tools
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
